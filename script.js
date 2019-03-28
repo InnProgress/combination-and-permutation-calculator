@@ -2,6 +2,7 @@ let additionalResValue = document.getElementById('additionalResult');
 toggleAdditionalRes(false);
 
 let sprendimas = document.getElementById('sprendimas');
+let resultInput = document.getElementById('result');
 
 let type = document.getElementById('type');
 let img = document.getElementById('formul_img');
@@ -18,7 +19,12 @@ function recalc() {
   let n = document.getElementById('n').value;
   let k = document.getElementById('k').value;
 
-  if(!(k >= 1 && n >= 1)) return;
+  if(!(k >= 1 && n >= 1) || k > n) {
+    sprendimas.innerHTML = "";
+    toggleAdditionalRes(false);
+    resultInput.value = "";
+    return;
+  }
 
   let bottomRes = n - k;
 
@@ -81,7 +87,7 @@ function recalc() {
 
   }
 
-  document.getElementById('result').value = mainRes;
+  resultInput.value = mainRes;
 }
 function toggleAdditionalRes(toggle) {
   additionalResValue.style.display = toggle ? "block" : "none";
