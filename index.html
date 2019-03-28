@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Calc</title>
+  </head>
+  <body>
+    <div class="container main-theme">
+
+      <div class="input-block">
+        Pasirinkta formulė:
+        <select id="type" onchange="typeChange()">
+          <option value="A">A</option>
+          <option value="C">C</option>
+        </select>
+
+        <br>
+        <image id="formul_img" src="images/a.png" alt="formule">
+      </div>
+
+      <div class="input-block">
+        k:
+        <input type="number" id="k" placeholder="K" value="2" onchange="recalc()">
+      </div>
+      <div class="input-block">
+        n: <input type="number" id="n" placeholder="N" value="12" onchange="recalc()">
+      </div>
+
+      <h2>Rezultatas</h2>
+      <input type="text" id="result" disabled>
+      <span id="additionalResult"></span>
+
+      <h2>Sprendimas</h2>
+      <div id="sprendimas">
+
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
