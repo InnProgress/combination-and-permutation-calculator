@@ -35,17 +35,24 @@ function recalc() {
 
   if(type.value === 'A') {
     let calcs = "";
+    let first = true;
     while(tempRes - 1 != bottomRes) {
       tempRes --;
       topRes *= tempRes;
-      calcs += tempRes + " * ";
+
+      calcs += ' * ' + tempRes;
     }
     mainRes = topRes;
 
     sprendimas.innerHTML = '<span class="f"><div class="n">' + n + '!</div><div>(' + n + ' - ' + k + ')!</div></span> ';
-    sprendimas.innerHTML += ' = <span class="f"><div class="n">' + n + '!</div><div>' + bottomRes  + '!</div></span>';
-    sprendimas.innerHTML += ' = <span class="f"><div class="n">' + n + ' * ' + calcs + '<strike>' + bottomRes + '!</strike> </div><div><strike>' + bottomRes + '!</strike></div></span>';
-    sprendimas.innerHTML += " = " + mainRes;
+    if(bottomRes > 0) {
+      sprendimas.innerHTML += ' = <span class="f"><div class="n">' + n + '!</div><div>' + bottomRes  + '!</div></span>';
+      sprendimas.innerHTML += ' = <span class="f"><div class="n">' + n + ' * ' + calcs + '<strike>' + bottomRes + '!</strike> </div><div><strike>' + bottomRes + '!</strike></div></span>';
+    }
+    else {
+      sprendimas.innerHTML += ' = ' + n + '!';
+      sprendimas.innerHTML += ' = ' + n + calcs;
+    }
 
     toggleAdditionalRes(false);
 
@@ -78,17 +85,16 @@ function recalc() {
     mainRes = topRes / ress;
 
     let styledK = k > bottomRes ? '<strike>' + k + '!</strike>' : k + '!';
-    let styledBottomRes = bottomRes > k ? '<strike>' + bottomRes + '!</strike>' : bottomRes + '!';
+    let styledBottomRes = (bottomRes > k || k === bottomRes) ? '<strike>' + bottomRes + '!</strike>' : bottomRes + '!';
 
     sprendimas.innerHTML = '<span class="f"><div class="n">' + n + '!</div><div>' + k + '!(' + n + ' - ' + k + ')!</div></span> ';
     sprendimas.innerHTML += ' = <span class="f"><div class="n">' + n + '!</div><div>' + k + '! * ' + bottomRes  + '!</div></span>';
     sprendimas.innerHTML += ' = <span class="f"><div class="n">' + n + ' * ' + calcs + '<strike>' + biggerRes + '!</strike> </div><div>' + styledK + ' * ' + styledBottomRes + '</div></span>';
     if(lastRes > 2) sprendimas.innerHTML += ' = <span class="f"><div class="n">' + topRes + '</div><div>' + bottomCalcs + '</div></span>';
     sprendimas.innerHTML += ' = <span class="f"><div class="n">' + topRes + '</div><div>' + ress + '</div></span>';
-    sprendimas.innerHTML += " = " + mainRes;
 
   }
-
+  sprendimas.innerHTML += " = " + mainRes;
   resultInput.value = mainRes;
 }
 function toggleAdditionalRes(toggle) {
