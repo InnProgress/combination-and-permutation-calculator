@@ -47,7 +47,7 @@ function recalc() {
     sprendimas.innerHTML = '<span class="f"><div class="n">' + n + '!</div><div>(' + n + ' - ' + k + ')!</div></span> ';
     if(bottomRes > 0) {
       sprendimas.innerHTML += ' = <span class="f"><div class="n">' + n + '!</div><div>' + bottomRes  + '!</div></span>';
-      sprendimas.innerHTML += ' = <span class="f"><div class="n">' + n + ' * ' + calcs + '<strike>' + bottomRes + '!</strike> </div><div><strike>' + bottomRes + '!</strike></div></span>';
+      sprendimas.innerHTML += ' = <span class="f"><div class="n">' + n + calcs + ' * <strike>' + bottomRes + '!</strike> </div><div><strike>' + bottomRes + '!</strike></div></span>';
     }
     else {
       sprendimas.innerHTML += ' = ' + n + '!';
