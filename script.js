@@ -12,14 +12,23 @@ recalc();
 function typeChange() {
   let imgSrc = (type.value === 'A') ? "a.png" : "c.png";
   img.src = "images/" + imgSrc;
+
+  if(type.value === 'A') {
+    document.getElementById('a-tip').style.display = "block";
+    document.getElementById('c-tip').style.display = "none";
+  } else {
+    document.getElementById('a-tip').style.display = "none";
+    document.getElementById('c-tip').style.display = "block";
+  }
+
   recalc();
 }
 
 function recalc() {
-  let n = document.getElementById('n').value;
-  let k = document.getElementById('k').value;
+  let n = parseInt(document.getElementById('n').value);
+  let k = parseInt(document.getElementById('k').value);
 
-  if(!(k >= 1 && n >= 1)) {
+  if(k < 0 || n < 0 || k > n || (type.value === 'C' && k === n)) {
     sprendimas.innerHTML = "";
     toggleAdditionalRes(false);
     resultInput.value = "";
@@ -34,19 +43,25 @@ function recalc() {
   let mainRes = 0;
 
   if(type.value === 'A') {
-
     let calcs = "";
+    let first = true;
     while(tempRes - 1 != bottomRes) {
       tempRes --;
       topRes *= tempRes;
-      calcs += tempRes + " * ";
+
+      calcs += ' * ' + tempRes;
     }
     mainRes = topRes;
 
     sprendimas.innerHTML = '<span class="f"><div class="n">' + n + '!</div><div>(' + n + ' - ' + k + ')!</div></span> ';
-    sprendimas.innerHTML += ' = <span class="f"><div class="n">' + n + '!</div><div>' + bottomRes  + '!</div></span>';
-    sprendimas.innerHTML += ' = <span class="f"><div class="n">' + n + ' * ' + calcs + '<strike>' + bottomRes + '!</strike> </div><div><strike>' + bottomRes + '!</strike></div></span>';
-    sprendimas.innerHTML += " = " + mainRes;
+    if(bottomRes > 0) {
+      sprendimas.innerHTML += ' = <span class="f"><div class="n">' + n + '!</div><div>' + bottomRes  + '!</div></span>';
+      sprendimas.innerHTML += ' = <span class="f"><div class="n">' + n + calcs + ' * <strike>' + bottomRes + '!</strike> </div><div><strike>' + bottomRes + '!</strike></div></span>';
+    }
+    else {
+      sprendimas.innerHTML += ' = ' + n + '!';
+      sprendimas.innerHTML += ' = ' + n + calcs;
+    }
 
     toggleAdditionalRes(false);
 
@@ -78,15 +93,17 @@ function recalc() {
 
     mainRes = topRes / ress;
 
+    let styledK = k > bottomRes ? '<strike>' + k + '!</strike>' : k + '!';
+    let styledBottomRes = (bottomRes > k || k === bottomRes) ? '<strike>' + bottomRes + '!</strike>' : bottomRes + '!';
+
     sprendimas.innerHTML = '<span class="f"><div class="n">' + n + '!</div><div>' + k + '!(' + n + ' - ' + k + ')!</div></span> ';
     sprendimas.innerHTML += ' = <span class="f"><div class="n">' + n + '!</div><div>' + k + '! * ' + bottomRes  + '!</div></span>';
-    sprendimas.innerHTML += ' = <span class="f"><div class="n">' + n + ' * ' + calcs + '<strike>' + bottomRes + '!</strike> </div><div>' + k + '! * <strike>' + bottomRes + '!</strike></div></span>';
-    sprendimas.innerHTML += ' = <span class="f"><div class="n">' + topRes + '</div><div>' + bottomCalcs + '</div></span>';
-    if(k > 2) sprendimas.innerHTML += ' = <span class="f"><div class="n">' + topRes + '</div><div>' + ress + '</div></span>';
-    sprendimas.innerHTML += " = " + mainRes;
+    sprendimas.innerHTML += ' = <span class="f"><div class="n">' + n + ' * ' + calcs + '<strike>' + biggerRes + '!</strike> </div><div>' + styledK + ' * ' + styledBottomRes + '</div></span>';
+    if(lastRes > 2) sprendimas.innerHTML += ' = <span class="f"><div class="n">' + topRes + '</div><div>' + bottomCalcs + '</div></span>';
+    sprendimas.innerHTML += ' = <span class="f"><div class="n">' + topRes + '</div><div>' + ress + '</div></span>';
 
   }
-
+  sprendimas.innerHTML += " = " + mainRes;
   resultInput.value = mainRes;
 }
 function toggleAdditionalRes(toggle) {

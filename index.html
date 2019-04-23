@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <title>Calc</title>
+    <title>Deriniai ir gretiniai</title>
   </head>
   <body>
     <div class="container main-theme">
@@ -18,14 +18,17 @@
 
         <br>
         <image id="formul_img" src="images/a.png" alt="formule">
+
+        <p id="a-tip"><b>N</b> privalo būti didesnis arba lygus skaičiui <b>K</b></p>
+        <p id="c-tip"><b>N</b> privalo būti didesnis už skaičių <b>K</b></p>
       </div>
 
       <div class="input-block">
         k:
-        <input type="number" id="k" placeholder="K" value="0" onchange="recalc()">
+        <input type="number" min="1" id="k" placeholder="K" value="1" onchange="recalc()">
       </div>
       <div class="input-block">
-        n: <input type="number" id="n" placeholder="N" value="0" onchange="recalc()">
+        n: <input type="number" min="1" id="n" placeholder="N" value="1" onchange="recalc()">
       </div>
 
       <h2>Rezultatas</h2>

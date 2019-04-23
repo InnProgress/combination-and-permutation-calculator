@@ -43,3 +43,7 @@ input:not(:disabled), select {
 .n {
     border-bottom: 1px solid white;
 }
+
+#c-tip {
+  display: none;
+}
